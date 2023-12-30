@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="tr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="Bu sayfa son deprem verilerini listeler." />
+    <meta name="keywords" content="Son Depremler, Deprem, Veri, Liste" />
+    <title>Son Depremler</title>
+    <link rel="stylesheet" href="styles.css" />
+</head>
+  <body>
+    <header>
+      <h1>Son Depremler</h1>
+    </header>
+    <main>
+      <ul id="depremListesi"></ul>
+    </main>
+    <footer>
+        <p>Veriler <a href="http://www.koeri.boun.edu.tr/scripts/lst0.asp" rel="external">Kandilli Rasathanesi</a> tarafından sağlanmaktadır.</p>
+        <p>"Söz konusu bilgi, veri ve haritalar Boğaziçi Üniversitesi Rektörlüğü’nün yazılı izni ve onayı olmadan herhangi bir şekilde ticari amaçlı kullanılamaz."</p>
+        <p>2020 - <span id="currentYear"></span> | Eray Efe Kutlu </p>
+    </footer>
+    <script src="script.js"></script>
+    <script>
+        document.getElementById('currentYear').textContent = new Date().getFullYear();
+    </script>
+  </body>
+</html>
