@@ -1,16 +1,14 @@
 function fetchDepremVerileri() {
-  fetch("https://deprem-api.vercel.app/")
+  depremListesi.innerHTML = '';
+  fetch("https://api.orhanaydogdu.com.tr/deprem/kandilli/live")
     .then((response) => response.json())
     .then((data) => {
-      const depremListesi = document.getElementById("depremListesi");
-      depremListesi.innerHTML = "";
-
-      data.earthquakes.forEach((deprem) => {
+      data.result.forEach((deprem) => {
         const listItem = document.createElement("li");
-        listItem.textContent = `${deprem.location} - Büyüklük: ${deprem.size.ml}`;
-        if (deprem.size.ml <= 2.50) {
+        listItem.textContent = `${deprem.title} - Büyüklük: ${deprem.mag}`;
+        if (deprem.mag <= 2.50) {
             listItem.classList.add('yesil');
-        } else if (deprem.size.ml < 5) {
+        } else if (deprem.mag < 5) {
             listItem.classList.add('turuncu');
         } else {
             listItem.classList.add('kirmizi');
@@ -24,7 +22,14 @@ function fetchDepremVerileri() {
             isInfoDivVisible = false;
           } else {
             infoDiv = document.createElement("div");
-            infoDiv.textContent = `Derinlik: ${deprem.depth} - Enlem: ${deprem.latitude} - Boylam: ${deprem.longitude}`;
+            let date = new Date(deprem.date);
+            let hours = date.getHours().toString().padStart(2, '0');
+            let minutes = date.getMinutes().toString().padStart(2, '0');
+            let seconds = date.getSeconds().toString().padStart(2, '0');
+            let day = date.getDate().toString().padStart(2, '0');
+            let month = (date.getMonth() + 1).toString().padStart(2, '0');
+            let year = date.getFullYear();
+            infoDiv.textContent = `Saat: ${hours}:${minutes}:${seconds} Tarih: ${day}/${month}/${year} Derinlik: ${deprem.depth} - Enlem: ${deprem.geojson.coordinates[1]} - Boylam: ${deprem.geojson.coordinates[0]}`;
             infoDiv.style.display = "none";
             this.appendChild(infoDiv);
             infoDiv.style.display = "block";
@@ -37,4 +42,3 @@ function fetchDepremVerileri() {
 }
 
 fetchDepremVerileri();
-setInterval(fetchDepremVerileri, 5000);
