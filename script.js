@@ -23,13 +23,9 @@ function fetchDepremVerileri() {
           } else {
             infoDiv = document.createElement("div");
             let date = new Date(deprem.date);
-            let hours = date.getHours().toString().padStart(2, '0');
-            let minutes = date.getMinutes().toString().padStart(2, '0');
-            let seconds = date.getSeconds().toString().padStart(2, '0');
-            let day = date.getDate().toString().padStart(2, '0');
-            let month = (date.getMonth() + 1).toString().padStart(2, '0');
-            let year = date.getFullYear();
-            infoDiv.textContent = `Saat: ${hours}:${minutes}:${seconds} Tarih: ${day}/${month}/${year} Derinlik: ${deprem.depth} - Enlem: ${deprem.geojson.coordinates[1]} - Boylam: ${deprem.geojson.coordinates[0]}`;
+            let dateString = date.toLocaleDateString('tr-TR', { day: '2-digit', month: '2-digit', year: 'numeric' });
+            let timeString = date.toLocaleTimeString('tr-TR', { hour: '2-digit', minute: '2-digit', second: '2-digit' });
+            infoDiv.textContent = `Saat: ${timeString} Tarih: ${dateString} Derinlik: ${deprem.depth} - Enlem: ${deprem.geojson.coordinates[1]} - Boylam: ${deprem.geojson.coordinates[0]}`;
             infoDiv.style.display = "none";
             this.appendChild(infoDiv);
             infoDiv.style.display = "block";
