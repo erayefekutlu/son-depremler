@@ -16,13 +16,18 @@ function fetchDepremVerileri() {
 
         let isInfoDivVisible = false;
         let infoDiv = null;
-        listItem.addEventListener("click", function (event) {
+        listItem.addEventListener("click", function () {
           if (isInfoDivVisible) {
             infoDiv.remove();
             isInfoDivVisible = false;
           } else {
             infoDiv = document.createElement("div");
-            let date = new Date(deprem.date);
+            let rawDate = deprem.date;
+            let date = new Date(rawDate);
+            if (isNaN(date.getTime())) {
+              rawDate = rawDate.replace(/-/g, "/").replace("T", " ").replace("Z", "");
+              date = new Date(rawDate);
+            }
             let formattedDate = formatDate(date);
             infoDiv.textContent = `Tarih ve Saat: ${formattedDate} Derinlik: ${deprem.depth} - Enlem: ${deprem.geojson.coordinates[1]} - Boylam: ${deprem.geojson.coordinates[0]}`;
             infoDiv.style.display = "none";
