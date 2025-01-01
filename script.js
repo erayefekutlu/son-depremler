@@ -22,18 +22,14 @@ function fetchDepremVerileri() {
             isInfoDivVisible = false;
           } else {
             infoDiv = document.createElement("div");
-            let rawDate = deprem.date;
 
             try {
-              const date = new Date(rawDate);
-              if (isNaN(date.getTime())) {
-                const { parseISO, format } = dateFns;
-                const parsedDate = parseISO(rawDate);
-                const formattedDate = format(parsedDate, "dd/MM/yyyy HH:mm:ss");
-                infoDiv.textContent = `Tarih ve Saat: ${formattedDate} Derinlik: ${deprem.depth} - Enlem: ${deprem.geojson.coordinates[1]} - Boylam: ${deprem.geojson.coordinates[0]}`;
-              } else {
-                infoDiv.textContent = "Tarih formatı desteklenmiyor.";
-              }
+              const { parse, format } = dateFns;
+              const rawDate = deprem.date;
+              const parsedDate = parse(rawDate, "yyyy.MM.dd HH:mm:ss", new Date());
+              const formattedDate = format(parsedDate, "dd/MM/yyyy HH:mm:ss");
+
+              infoDiv.textContent = `Tarih ve Saat: ${formattedDate} Derinlik: ${deprem.depth} - Enlem: ${deprem.geojson.coordinates[1]} - Boylam: ${deprem.geojson.coordinates[0]}`;
             } catch (error) {
               console.error("Tarih dönüşümünde hata:", error);
               infoDiv.textContent = "Tarih formatıyla ilgili sorun var.";
