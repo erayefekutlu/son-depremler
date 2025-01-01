@@ -25,7 +25,7 @@ function fetchDepremVerileri() {
             let rawDate = deprem.date;
 
             try {
-              const date = new Date(rawDate); // ISO formatı
+              const date = new Date(rawDate);
               if (isNaN(date.getTime())) {
                 const { parseISO, format } = dateFns;
                 const parsedDate = parseISO(rawDate);
