@@ -35,6 +35,11 @@
     <script src="script.js"></script>
     <script>
       let refreshIntervalId = null;
+      
+      document.addEventListener("DOMContentLoaded", () => {
+      fetchDepremVerileri();
+      });
+      
       document.getElementById('refreshSwitch').addEventListener('change', (event) => {
         if (event.target.checked) {
           refreshIntervalId = setInterval(fetchDepremVerileri, 5000);
