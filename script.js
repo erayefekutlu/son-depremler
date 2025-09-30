@@ -25,7 +25,7 @@ function fetchDepremVerileri() {
 
             try {
               const { parse, format } = dateFns;
-              const rawDate = deprem.date;
+              const rawDate = deprem.date_time;
               const parsedDate = parse(rawDate, "yyyy.MM.dd HH:mm:ss", new Date());
               const formattedDate = format(parsedDate, "dd/MM/yyyy HH:mm:ss");
 
@@ -45,3 +45,4 @@ function fetchDepremVerileri() {
       });
     });
 }
+
