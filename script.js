@@ -27,6 +27,7 @@ function fetchDepremVerileri() {
               const { parse, format } = dateFns;
               const rawDate = deprem.date_time;
               const parsedDate = parse(rawDate, "yyyy.MM.dd HH:mm:ss", new Date());
+              const parsedDate = parse(rawDate, "yyyy-MM-dd HH:mm:ss", new Date());
               const formattedDate = format(parsedDate, "dd/MM/yyyy HH:mm:ss");
 
               infoDiv.textContent = `Tarih ve Saat: ${formattedDate} Derinlik: ${deprem.depth} - Enlem: ${deprem.geojson.coordinates[1]} - Boylam: ${deprem.geojson.coordinates[0]}`;
@@ -45,4 +46,5 @@ function fetchDepremVerileri() {
       });
     });
 }
+
 
